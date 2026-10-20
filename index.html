@@ -1,116 +1,230 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Criptografador</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-<style>
-:root{color-scheme:dark;--bg:#050a18;--line:rgba(148,163,184,.18);--field:#060d1f;--field-line:rgba(148,163,184,.28);--ink:#f4f7fc;--ph:#98a3bb;--red:linear-gradient(135deg,#ff4a4a,#f91e30);--pink:linear-gradient(135deg,#ff2a6d,#f9153f);--err:#ff8a8a;
---sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:linear-gradient(180deg,#0a1530 0,#050a18 340px),var(--bg);color:var(--ink);font:400 1rem/1.5 var(--sans)}
-header{display:flex;justify-content:center;align-items:center;gap:.8rem;padding:1.9rem 1rem;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0c1938,#08112a)}
-header h1{margin:0;font-size:2.2rem;font-weight:700;letter-spacing:-.01em}
-header svg{width:2.1rem;height:2.1rem}
-main{display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:90rem;margin:0 auto;padding:2.6rem clamp(1rem,3.2vw,3rem) 3rem}
-section{border:1px solid var(--line);border-radius:16px;padding:2.1rem 2.1rem 2.3rem;background:linear-gradient(180deg,rgba(5,10,24,.85),rgba(4,8,20,.95))}
-h2{margin:0 0 1.5rem;font-size:2.35rem;line-height:1.1;font-weight:700;letter-spacing:-.015em}
-label{display:block;margin:0 0 .6rem;font-size:1.08rem;font-weight:600}
-input,textarea{display:block;width:100%;margin:0 0 1.2rem;padding:1.05rem 1.2rem;font:400 1.08rem/1.5 var(--sans);color:var(--ink);background:var(--field);border:1px solid var(--field-line);border-radius:10px}
-textarea{height:10.8rem;resize:vertical;padding-top:1.05rem}
-textarea.out{height:12rem}
-input::placeholder,textarea::placeholder{color:var(--ph)}
-input:focus,textarea:focus{outline:2px solid #ff4a4a;outline-offset:1px;border-color:transparent}
-button{display:flex;align-items:center;justify-content:center;gap:.7rem;width:100%;height:4.4rem;margin:0 0 1.2rem;border:0;border-radius:10px;color:#fff;font:600 1.25rem var(--sans);cursor:pointer;background:var(--red);box-shadow:0 6px 18px rgba(249,30,48,.18)}
-button.copy{background:var(--pink);margin:0}
-button svg{width:1.7rem;height:1.7rem}
-button:hover:not(:disabled){filter:brightness(1.08)}
-button:focus-visible{outline:3px solid #fff;outline-offset:3px}
-button:disabled{opacity:.55;cursor:not-allowed}
-.err{min-height:1.5rem;margin:-.4rem 0 1rem;color:var(--err);font-weight:500}
-.err:empty{display:none}
-@media(max-width:820px){main{grid-template-columns:1fr}header h1{font-size:1.8rem}h2{font-size:2rem}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Criptografador</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <style>
+    :root{color-scheme:dark;--bg:#050a18;--line:rgba(148,163,184,.18);--field:#060d1f;--field-line:rgba(148,163,184,.28);--ink:#f4f7fc;--ph:#98a3bb;--err:#ff7a7a;--red:linear-gradient(135deg,#ff4a4a,#f91e30);--pink:linear-gradient(135deg,#ff59a7,#ff3d79);--shadow:rgba(0,0,0,.28)}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;background:linear-gradient(180deg,#0a1530 0,#050a18 340px),var(--bg);color:var(--ink);font:400 1rem/1.5 "Inter",system-ui,-apple-system,"Segoe UI",sans-serif}
+    header{display:flex;justify-content:center;align-items:center;gap:.8rem;padding:1.9rem 1rem;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0c1938,#08112a)}
+    header h1{margin:0;font-size:2.2rem;font-weight:700;letter-spacing:-.01em}
+    header svg{width:2.1rem;height:2.1rem}
+    main{display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:90rem;margin:0 auto;padding:2.6rem clamp(1rem,3.2vw,3rem) 3rem}
+    section{border:1px solid var(--line);border-radius:16px;padding:2.1rem 2.1rem 2.3rem;background:linear-gradient(180deg,rgba(5,10,24,.85),rgba(4,8,20,.95));box-shadow:0 18px 40px var(--shadow)}
+    h2{margin:0 0 1.5rem;font-size:2.35rem;line-height:1.1;font-weight:700;letter-spacing:-.015em}
+    label{display:block;margin:0 0 .6rem;font-size:1.08rem;font-weight:600}
+    input,textarea{display:block;width:100%;margin:0 0 1.2rem;padding:1.05rem 1.2rem;font:400 1.08rem/1.5 "Inter",system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--field);border:1px solid var(--field-line);border-radius:12px;transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease}
+    textarea{height:10.8rem;resize:vertical;padding-top:1.05rem}
+    textarea.out{height:12rem}
+    input::placeholder,textarea::placeholder{color:var(--ph)}
+    input:focus,textarea:focus{outline:2px solid #ff4a4a;outline-offset:1px;border-color:transparent}
+    button{display:flex;align-items:center;justify-content:center;gap:.7rem;width:100%;height:4.4rem;margin:0 0 1.2rem;border:0;border-radius:10px;color:#fff;font:600 1.25rem "Inter",system-ui,-apple-system,"Segoe UI",sans-serif;cursor:pointer;background:var(--red);box-shadow:0 10px 18px rgba(249,30,48,.28);transition:filter .18s ease,transform .18s ease}
+    button.copy{background:var(--pink);margin:0}
+    button svg{width:1.7rem;height:1.7rem}
+    button:hover:not(:disabled){filter:brightness(1.08);transform:translateY(-1px)}
+    button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+    button:disabled{opacity:.55;cursor:not-allowed;box-shadow:none}
+    .err{min-height:1.5rem;margin:-.4rem 0 1rem;color:var(--err);font-weight:500}
+    .err:empty{display:none}
+    .muted{font-size:.94rem;color:var(--ph);margin-top:.8rem;line-height:1.5}
+    @media(max-width:820px){main{grid-template-columns:1fr}header h1{font-size:1.8rem}h2{font-size:2rem}}
+    @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+  </style>
 </head>
 <body>
-<header>
- <svg viewBox="0 0 24 24" fill="#f4f7fc" aria-hidden="true"><path d="M17 9V7a5 5 0 0 0-10 0v2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2Zm-8-2a3 3 0 0 1 6 0v2H9V7Z"/></svg>
- <h1>Criptografador de Mensagem</h1>
-</header>
+  <header>
+    <svg viewBox="0 0 24 24" fill="#f4f7fc" aria-hidden="true"><path d="M17 9V7a5 5 0 0 0-10 0v2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2Zm-8-2a3 3 0 0 1 6 0v2H9V7Z"/></svg>
+    <h1>Criptografador de Mensagem</h1>
+  </header>
 
-<main>
- <section aria-labelledby="t1">
-  <h2 id="t1">Criptografar</h2>
-  <label for="s1">Senha secreta</label>
-  <input id="s1" type="password" placeholder="Digite a senha secreta" autocomplete="off">
-  <label for="m1" hidden>Mensagem</label>
-  <textarea id="m1" placeholder="Digite a mensagem" aria-label="Mensagem"></textarea>
-  <button id="b1" type="button">
-   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17 9V7a5 5 0 0 0-10 0v2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2Zm-8-2a3 3 0 0 1 6 0v2H9V7Z"/></svg>
-   <span>Criptografar</span>
-  </button>
-  <p class="err" id="e1" role="alert"></p>
-  <textarea id="o1" class="out" readonly placeholder="Mensagem criptografada" aria-label="Mensagem criptografada"></textarea>
-  <button id="c1" type="button" class="copy" disabled>
-   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 3a2 2 0 0 0-2 2v1H5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V8.4a2 2 0 0 0-.6-1.4l-3.4-3.4A2 2 0 0 0 12.6 3H8Zm0 2h4v3a1 1 0 0 0 1 1h3v8H8V5Zm-3 3h1v9a2 2 0 0 0 2 2h7v1H5V8Z"/></svg>
-   <span>Copiar</span>
-  </button>
- </section>
+  <main>
+    <section aria-labelledby="t1">
+      <h2 id="t1">Criptografar</h2>
+      <label for="s1">Senha secreta</label>
+      <input id="s1" type="password" placeholder="Digite a senha secreta" autocomplete="off">
+      <label for="m1" hidden>Mensagem</label>
+      <textarea id="m1" placeholder="Digite a mensagem" aria-label="Mensagem"></textarea>
+      <button id="b1" type="button">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17 9V7a5 5 0 0 0-10 0v2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2Zm-8-2a3 3 0 0 1 6 0v2H9V7Z"/></svg>
+        <span>Criptografar</span>
+      </button>
+      <p class="err" id="e1" role="alert"></p>
+      <textarea id="o1" class="out" readonly placeholder="Mensagem criptografada" aria-label="Mensagem criptografada"></textarea>
+      <button id="c1" type="button" class="copy" disabled>
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 3a2 2 0 0 0-2 2v1H5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V8.4a2 2 0 0 0-.6-1.4l-3.4-3.4A2 2 0 0 0 13.6 3H8Zm7 5h2.5l-2.5-2.5V8Zm-6 1h5v2H9V9Zm0 3h7v2H9v-2Z"/></svg>
+        <span>Copiar</span>
+      </button>
+      <p class="muted">Versão estática para GitHub Pages: a criptografia acontece no navegador, sem servidor Python.</p>
+    </section>
 
- <section aria-labelledby="t2">
-  <h2 id="t2">Decifrar</h2>
-  <label for="s2">Senha secreta</label>
-  <input id="s2" type="password" placeholder="Digite a mesma senha secreta" autocomplete="off">
-  <label for="m2" hidden>Mensagem criptografada</label>
-  <textarea id="m2" placeholder="Cole a mensagem criptografada" aria-label="Mensagem criptografada"></textarea>
-  <button id="b2" type="button">
-   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17 9H9V7a3 3 0 0 1 5.8-1.1 1 1 0 1 0 1.9-.7A5 5 0 0 0 7 7v2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2Z"/></svg>
-   <span>Decifrar</span>
-  </button>
-  <p class="err" id="e2" role="alert"></p>
-  <textarea id="o2" class="out" readonly placeholder="Mensagem original" aria-label="Mensagem original"></textarea>
- </section>
-</main>
+    <section aria-labelledby="t2">
+      <h2 id="t2">Decifrar</h2>
+      <label for="s2">Senha secreta</label>
+      <input id="s2" type="password" placeholder="Digite a mesma senha secreta" autocomplete="off">
+      <label for="m2" hidden>Mensagem criptografada</label>
+      <textarea id="m2" placeholder="Cole a mensagem criptografada" aria-label="Mensagem criptografada"></textarea>
+      <button id="b2" type="button">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17 9H9V7a3 3 0 0 1 5.8-1.1 1 1 0 1 0 1.9-.7A5 5 0 0 0 7 7v2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2Z"/></svg>
+        <span>Decifrar</span>
+      </button>
+      <p class="err" id="e2" role="alert"></p>
+      <textarea id="o2" class="out" readonly placeholder="Mensagem original" aria-label="Mensagem original"></textarea>
+    </section>
+  </main>
 
-<script>
-const $=id=>document.getElementById(id);
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const encoder = new TextEncoder();
+    const decoder = new TextDecoder();
 
-async function chamar(rota,senha,mensagem){
- let r;
- try{
-  r=await fetch("/api/"+rota,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({senha,mensagem})});
- }catch(e){throw new Error("Não foi possível falar com o servidor Python. Confira se o app.py está rodando.")}
- const d=await r.json().catch(()=>({}));
- if(!r.ok)throw new Error(d.erro||"Algo deu errado. Tente de novo.");
- return d.resultado;
-}
+    function base64UrlEncode(bytes) {
+      let binary = '';
+      const chunkSize = 0x8000;
+      for (let i = 0; i < bytes.length; i += chunkSize) {
+        binary += String.fromCharCode(...bytes.slice(i, i + chunkSize));
+      }
+      return btoa(binary)
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/, '');
+    }
 
-function ligar(btn,rota,senha,msg,out,err,ocupado,hook){
- const b=$(btn),label=b.querySelector("span"),texto=label.textContent;
- b.addEventListener("click",async()=>{
-  $(err).textContent="";
-  b.disabled=true;label.textContent=ocupado;
-  try{
-   $(out).value=await chamar(rota,$(senha).value,$(msg).value);
-   if(hook)hook(true);
-  }catch(e){
-   $(out).value="";$(err).textContent=e.message;
-   if(hook)hook(false);
-  }finally{b.disabled=false;label.textContent=texto}
- });
-}
-ligar("b1","criptografar","s1","m1","o1","e1","Criptografando…",ok=>{$("c1").disabled=!ok});
-ligar("b2","decifrar","s2","m2","o2","e2","Decifrando…");
+    function base64UrlDecode(value) {
+      const sanitized = String(value || '').trim();
+      if (!sanitized) {
+        throw new Error('Mensagem criptografada inválida. Cole o texto completo.');
+      }
+      const base64 = sanitized.replace(/-/g, '+').replace(/_/g, '/');
+      const padded = base64 + '='.repeat((4 - (base64.length % 4)) % 4);
+      const binary = atob(padded);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+      }
+      return bytes;
+    }
 
-$("c1").addEventListener("click",async()=>{
- const b=$("c1"),label=b.querySelector("span"),o=$("o1");
- try{await navigator.clipboard.writeText(o.value)}
- catch(e){o.select();document.execCommand("copy")}
- label.textContent="Copiado!";
- setTimeout(()=>label.textContent="Copiar",1600);
-});
-</script>
+    async function deriveKey(password, salt) {
+      const baseKey = await crypto.subtle.importKey(
+        'raw',
+        encoder.encode(password),
+        'PBKDF2',
+        false,
+        ['deriveKey']
+      );
+
+      return crypto.subtle.deriveKey(
+        {
+          name: 'PBKDF2',
+          salt,
+          iterations: 600000,
+          hash: 'SHA-256'
+        },
+        baseKey,
+        { name: 'AES-GCM', length: 256 },
+        false,
+        ['encrypt', 'decrypt']
+      );
+    }
+
+    async function encryptMessage(message, password) {
+      const salt = crypto.getRandomValues(new Uint8Array(16));
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const key = await deriveKey(password, salt);
+      const ciphertext = await crypto.subtle.encrypt(
+        { name: 'AES-GCM', iv },
+        key,
+        encoder.encode(message)
+      );
+
+      const combined = new Uint8Array(salt.length + iv.length + ciphertext.byteLength);
+      combined.set(salt, 0);
+      combined.set(iv, salt.length);
+      combined.set(new Uint8Array(ciphertext), salt.length + iv.length);
+
+      return base64UrlEncode(combined);
+    }
+
+    async function decryptMessage(payload, password) {
+      const bytes = base64UrlDecode(payload);
+      if (bytes.length <= 28) {
+        throw new Error('Mensagem criptografada inválida. Cole o texto completo.');
+      }
+
+      const salt = bytes.slice(0, 16);
+      const iv = bytes.slice(16, 28);
+      const ciphertext = bytes.slice(28);
+      const key = await deriveKey(password, salt);
+
+      try {
+        const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, ciphertext);
+        return decoder.decode(plain);
+      } catch {
+        throw new Error('Senha incorreta ou mensagem alterada. Confira os dois e tente de novo.');
+      }
+    }
+
+    function setError(targetId, message) {
+      $(targetId).textContent = message || '';
+    }
+
+    function ligar(btn, action, senhaId, msgId, outId, errId, ocupado, hook) {
+      const b = $(btn);
+      const label = b.querySelector('span');
+      const textoOriginal = label.textContent;
+
+      b.addEventListener('click', async () => {
+        setError(errId, '');
+        b.disabled = true;
+        label.textContent = ocupado;
+
+        try {
+          const senha = $(senhaId).value;
+          const mensagem = $(msgId).value;
+
+          if (!senha.trim()) throw new Error('Digite a senha secreta.');
+          if (!mensagem.trim()) {
+            throw new Error(action === 'criptografar' ? 'Digite a mensagem.' : 'Cole a mensagem criptografada.');
+          }
+
+          const resultado = action === 'criptografar'
+            ? await encryptMessage(mensagem, senha)
+            : await decryptMessage(mensagem, senha);
+
+          $(outId).value = resultado;
+          if (hook) hook(true);
+        } catch (error) {
+          $(outId).value = '';
+          setError(errId, error.message || 'Algo deu errado. Tente de novo.');
+          if (hook) hook(false);
+        } finally {
+          b.disabled = false;
+          label.textContent = textoOriginal;
+        }
+      });
+    }
+
+    ligar('b1', 'criptografar', 's1', 'm1', 'o1', 'e1', 'Criptografando…', ok => {
+      $('c1').disabled = !ok;
+    });
+    ligar('b2', 'decifrar', 's2', 'm2', 'o2', 'e2', 'Decifrando…');
+
+    $('c1').addEventListener('click', async () => {
+      const b = $('c1');
+      const label = b.querySelector('span');
+      const o = $('o1');
+      try {
+        await navigator.clipboard.writeText(o.value);
+      } catch {
+        o.select();
+        document.execCommand('copy');
+      }
+      label.textContent = 'Copiado!';
+      setTimeout(() => label.textContent = 'Copiar', 1600);
+    });
+  </script>
 </body>
 </html>
